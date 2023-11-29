@@ -1,18 +1,26 @@
 from flask import Flask, request
-from utils import file_extension_has_allowed, create_error_response, create_success_response
 from werkzeug.utils import secure_filename
+from utils import file_extension_has_allowed, create_error_response, create_success_response
+
+
+from prometheus_flask_exporter import PrometheusMetrics
 
 from typing import List
 
 from models.product import Product
 
 
+
 import csv
 import os
 
 
-
 app = Flask(__name__)
+metrics =  PrometheusMetrics(app)
+
+
+metrics.info("app_info", "products-api", version="1.1")
+
 
 app.config["UPLOAD_FOLDER"] = "temp"
 
@@ -86,4 +94,5 @@ def get_product_by_sku(sku):
     return create_success_response(body, 200)
 
 
-app.run(host="0.0.0.0", debug=True)
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", debug=False)
