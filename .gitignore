@@ -435,3 +435,5 @@ pip-selfcheck.json
 
 temp/**
 !temp/.gitkeep
+
+.idea

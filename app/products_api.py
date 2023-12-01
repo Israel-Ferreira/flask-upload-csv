@@ -10,7 +10,6 @@ from typing import List
 from models.product import Product
 
 
-
 import csv
 import os
 
@@ -25,7 +24,6 @@ metrics.info("app_info", "products-api", version="1.1")
 app.config["UPLOAD_FOLDER"] = "temp"
 
 products : List[Product]  = []
-
 
 
 def read_csv(csv_file_path):
@@ -76,20 +74,16 @@ def upload_csv():
         return create_error_response(error_msg, 400)
     
 
-
 @app.route("/products/<sku>")
 def get_product_by_sku(sku):
     product_result =  [prdct for prdct in products if prdct.sku == sku]
 
-
     if len(product_result) == 0:
         return create_error_response("Produto não encontrado", 404)
-    
 
     body =  product_result[0].to_dict()
 
     print(type(body))
-
 
     return create_success_response(body, 200)
 
