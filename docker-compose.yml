@@ -1,12 +1,21 @@
 version: '3.8'
 
 services:
-  flask-prometheus:
+  prometheus-upload-app:
     image: prom/prometheus
-
+    container_name: prometheus-upload-app
     volumes:
-      - 
-
+      - ./data/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      
     ports:
       - 9090:9090
+
+  upload-flask-app:
+    build:
+      context: app
+      dockerfile: Dockerfile
+
+    container_name: upload-flask-app
+    ports:
+      - 5000:5000
 

@@ -1,0 +1,17 @@
+global:
+  scrape_interval: "15s"
+  scrape_timeout: "10s"
+  evaluation_interval: "1m"
+
+scrape_configs:
+  - job_name: prometheus-job
+    metrics_path: /metrics
+    static_configs:
+      - targets:
+        - "prometheus-upload-app:9090"
+
+  - job_name: upload-flask-app-job
+    metrics_path: /metrics
+    static_configs:
+      - targets:
+        - "upload-flask-app:5000"
